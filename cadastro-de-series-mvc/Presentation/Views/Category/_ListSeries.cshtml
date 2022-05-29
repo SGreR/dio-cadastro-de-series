@@ -1,0 +1,40 @@
+﻿@model BLL.Classes.CategoryModel
+
+@{
+    var list = new List<BLL.Classes.SeriesModel>();
+
+    if (Model.Series != null)
+    {
+        list = Model.Series.OrderByDescending(s => s.Title).ToList();
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in list) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+            <a asp-controller="Series" asp-action="Details" asp-route-id="@item.Id">Details</a> | 
+            <a asp-controller="Series" asp-action="Edit" asp-route-id="@item.Id">Edit</a> | 
+            <a asp-controller="Series" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
